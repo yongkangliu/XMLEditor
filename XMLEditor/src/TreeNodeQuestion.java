@@ -3,4 +3,8 @@ public class TreeNodeQuestion extends TreeNode {
         super.name = name;
     }
 
+    public void showNodeValue() {
+        CardQuestionPanel questionPanel = CardQuestionPanel.getInstance();
+        questionPanel.showNodeValue(this);
+    }
 }

@@ -40,7 +40,7 @@ public class XMLTree extends JPanel implements ActionListener {
         tree.setShowsRootHandles(true);
         tree.addTreeSelectionListener(new MyTreeSelectionListener());
         tree.setCellRenderer(new MyDefaultTreeCellRenderer());
-        
+
         JScrollPane scrollPane = new JScrollPane(tree);
         super.add(scrollPane, BorderLayout.CENTER);
 
@@ -174,19 +174,19 @@ public class XMLTree extends JPanel implements ActionListener {
                 setAddButtonName("Add Question");
                 setRemoveButtonName("");
                 if (node != null) {
-                    cardPanels.displayPanel(CardPanels.QUIZ, (TreeNode) node.getUserObject());
+                    cardPanels.displayPanel(CardQuizPanel.QUIZ, (TreeNode) node.getUserObject());
                 }
             } else if (level == 2) {
                 setAddButtonName("Add Option");
                 setRemoveButtonName("Remove Question");
                 if (node != null) {
-                    cardPanels.displayPanel(CardPanels.QUESTION, (TreeNode) node.getUserObject());
+                    cardPanels.displayPanel(CardQuestionPanel.QUESTION, (TreeNode) node.getUserObject());
                 }
             } else {
                 setAddButtonName("");
                 setRemoveButtonName("Remove Option");
                 if (node != null) {
-                    cardPanels.displayPanel(CardPanels.OPTION, (TreeNode) node.getUserObject());
+                    cardPanels.displayPanel(CardOptionPanel.OPTION, (TreeNode) node.getUserObject());
                 }
             }
         }
