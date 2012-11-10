@@ -1,7 +1,11 @@
+package com.discoveryplace.xmleditor.ui;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+
+import com.discoveryplace.xmleditor.data.TreeNode;
 
 public class CardQuizPanel extends CardNodePanel {
 

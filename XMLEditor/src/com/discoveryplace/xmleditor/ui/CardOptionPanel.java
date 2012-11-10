@@ -1,3 +1,5 @@
+package com.discoveryplace.xmleditor.ui;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,6 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import com.discoveryplace.xmleditor.data.TreeNode;
 
 public class CardOptionPanel extends CardNodePanel {
 

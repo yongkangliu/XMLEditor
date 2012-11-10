@@ -1,3 +1,4 @@
+package com.discoveryplace.xmleditor.data;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -22,6 +23,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import com.discoveryplace.xmleditor.ui.XMLTree;
 
 public class XMLFile {
     DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();

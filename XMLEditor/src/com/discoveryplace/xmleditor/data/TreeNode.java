@@ -1,3 +1,4 @@
+package com.discoveryplace.xmleditor.data;
 public abstract class TreeNode {
     protected String name;
     protected String description;

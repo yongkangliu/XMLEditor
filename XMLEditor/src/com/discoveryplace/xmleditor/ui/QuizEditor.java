@@ -1,3 +1,5 @@
+package com.discoveryplace.xmleditor.ui;
+
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -14,6 +16,9 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
+
+import com.discoveryplace.xmleditor.data.TreeNodeQuiz;
+import com.discoveryplace.xmleditor.data.XMLFile;
 
 public class QuizEditor {
     private static XMLTree xmlTree;

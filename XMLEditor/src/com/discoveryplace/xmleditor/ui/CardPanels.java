@@ -1,6 +1,10 @@
+package com.discoveryplace.xmleditor.ui;
+
 import java.awt.CardLayout;
 
 import javax.swing.JPanel;
+
+import com.discoveryplace.xmleditor.data.TreeNode;
 
 public class CardPanels extends JPanel {
 

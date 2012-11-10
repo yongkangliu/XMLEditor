@@ -1,3 +1,5 @@
+package com.discoveryplace.xmleditor.ui;
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -7,13 +9,17 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
+
+import com.discoveryplace.xmleditor.data.TreeNode;
+import com.discoveryplace.xmleditor.data.TreeNodeOption;
+import com.discoveryplace.xmleditor.data.TreeNodeQuestion;
 
 public class XMLTree extends JPanel implements ActionListener {
 
