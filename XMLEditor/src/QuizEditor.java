@@ -3,6 +3,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -11,14 +12,18 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 
 public class QuizEditor {
+    private static XMLTree xmlTree;
 
     public static void main(String[] args) {
         // The left side
         JPanel panel = new JPanel(new GridLayout(1, 2));
         panel.setPreferredSize(new Dimension(600, 400));
         XMLTree xmlTreeGUI = XMLTree.getInstance(new TreeNodeQuiz("New Quiz"));
+        xmlTree = xmlTreeGUI;
         panel.add(xmlTreeGUI);
 
         // The right side
@@ -28,18 +33,18 @@ public class QuizEditor {
         JMenuBar jMenuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
 
-        JMenuItem newItem = new JMenuItem("New");
+        JMenuItem newItem = new JMenuItem("New Quiz");
         newItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 XMLTree.getInstance(new TreeNodeQuiz("New Quiz"));
             }
         });
 
-        JMenuItem openItem = new JMenuItem("Open");
+        JMenuItem openItem = new JMenuItem("Open File...");
         openItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 JFileChooser fc = new JFileChooser();
-                JFrame frame = new JFrame("open file");
+                JFrame frame = new JFrame("Open File");
 
                 fc.setDialogTitle("Open File");
 
@@ -53,13 +58,13 @@ public class QuizEditor {
             }
         });
 
-        JMenuItem saveItem = new JMenuItem("Save");
+        JMenuItem saveItem = new JMenuItem("Save As...");
         saveItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 JFileChooser fc = new JFileChooser();
-                JFrame frame = new JFrame("save file");
+                JFrame frame = new JFrame("Save As");
 
-                fc.setDialogTitle("Save File");
+                fc.setDialogTitle("Save As");
 
                 int state = fc.showSaveDialog(frame);
 
@@ -67,6 +72,18 @@ public class QuizEditor {
                     File file = fc.getSelectedFile();
 
                     System.out.println("open file----" + file.getName());
+                    try {
+                        XMLFile.generateXML(xmlTree, file.getAbsolutePath());
+                    } catch (ParserConfigurationException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    } catch (FileNotFoundException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    } catch (TransformerException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
                 }
             }
         });

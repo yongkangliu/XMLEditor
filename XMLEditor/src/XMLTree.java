@@ -39,7 +39,6 @@ public class XMLTree extends JPanel implements ActionListener {
         tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
         tree.setShowsRootHandles(true);
         tree.addTreeSelectionListener(new MyTreeSelectionListener());
-        tree.setCellRenderer(new MyDefaultTreeCellRenderer());
 
         JScrollPane scrollPane = new JScrollPane(tree);
         super.add(scrollPane, BorderLayout.CENTER);
@@ -69,6 +68,10 @@ public class XMLTree extends JPanel implements ActionListener {
         instance.tree.setModel(instance.treeModel);
 
         return instance;
+    }
+
+    public JTree getJTree() {
+        return this.tree;
     }
 
     /** Remove all nodes except the root node. */

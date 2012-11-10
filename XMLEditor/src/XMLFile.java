@@ -1,10 +1,22 @@
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Enumeration;
 
+import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -32,12 +44,51 @@ public class XMLFile {
         return document;
     }
 
-    public static void writeXML(XMLTree treePanel, String fileName) {
-        //XMLFile parser = new XMLFile();
-        //Document document = parser.parse(fileName);
+    public static void generateXML(XMLTree treePanel, String fileName) throws ParserConfigurationException,
+            FileNotFoundException, TransformerException {
+        System.out.println("writing");
+        JTree tree = treePanel.getJTree();
+        DefaultMutableTreeNode quizNode = (DefaultMutableTreeNode) tree.getModel().getRoot();
+        System.out.println("quiz:" + quizNode.getLevel());
 
-        //Element root = document.createElement("products");
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document doc = builder.newDocument();
+        Element quizNodeInfo = doc.createElement("quiz");
+        quizNodeInfo.setAttribute("test", "ttt");
+        doc.appendChild(quizNodeInfo);
 
+        for (Enumeration<?> questions = quizNode.children(); questions.hasMoreElements();) {
+            DefaultMutableTreeNode questionNode = (DefaultMutableTreeNode) questions.nextElement();
+            System.out.println("question:" + questionNode.getLevel());
+
+            Element questionNodeInfo = doc.createElement("question");
+            questionNodeInfo.setAttribute("test2", "222");
+            quizNodeInfo.appendChild(questionNodeInfo);
+
+            for (Enumeration<?> options = questionNode.children(); options.hasMoreElements();) {
+                DefaultMutableTreeNode optionNode = (DefaultMutableTreeNode) options.nextElement();
+                System.out.println("option:" + optionNode.getLevel());
+
+                Element optionNodeInfo = doc.createElement("option");
+                optionNodeInfo.setAttribute("test3", "333");
+                questionNodeInfo.appendChild(optionNodeInfo);
+            }
+        }
+
+        wirteFile(doc, fileName);
+    }
+
+    private static void wirteFile(Document doc, String fileName) throws TransformerException, FileNotFoundException {
+        TransformerFactory tf = TransformerFactory.newInstance();
+        tf.setAttribute("indent-number", new Integer(4));
+        Transformer transformer = tf.newTransformer();
+        DOMSource source = new DOMSource(doc);
+        transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        PrintWriter pw = new PrintWriter(new FileOutputStream(fileName));
+        StreamResult result = new StreamResult(pw);
+        transformer.transform(source, result);
     }
 
     public static XMLTree readXML(String fileName) {
