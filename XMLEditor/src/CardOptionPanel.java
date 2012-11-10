@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class CardOptionPanel extends CardNodePanel {
 
@@ -13,14 +14,15 @@ public class CardOptionPanel extends CardNodePanel {
     public static String OPTION = "option";
 
     private JTextField optionField1 = new JTextField();
-    private TreeNodeOption nodeOption;
 
     private static CardOptionPanel instance = new CardOptionPanel();
 
     private CardOptionPanel() {
         // Fields for Option information
         JPanel line30 = new JPanel(new GridLayout(1, 2));
-        line30.add(new JLabel("line30"));
+        JLabel line30Label = new JLabel("Field1:");
+        line30Label.setHorizontalAlignment(SwingConstants.RIGHT);
+        line30.add(line30Label);
         line30.add(optionField1);
         this.add(line30);
 
@@ -43,14 +45,10 @@ public class CardOptionPanel extends CardNodePanel {
     }
 
     public void showNodeValue(TreeNode node) {
-        nodeOption = (TreeNodeOption) node;
-
-        this.optionField1.setText(nodeOption.toString());
+        super.showNodeValue(node);
     }
 
-    private void setNodeValue() {
-        if (nodeOption != null) {
-            nodeOption.setName(optionField1.getText());
-        }
+    protected void setNodeValue() {
+        super.setNodeValue();
     }
 }

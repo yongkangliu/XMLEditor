@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class CardQuestionPanel extends CardNodePanel {
 
@@ -16,17 +17,20 @@ public class CardQuestionPanel extends CardNodePanel {
 
     private JTextField questionField1 = new JTextField();
     private JTextField questionField2 = new JTextField();
-    private TreeNodeQuestion nodeQuestion;
 
     private CardQuestionPanel() {
         // Fields for Question information
         JPanel line20 = new JPanel(new GridLayout(1, 2));
-        line20.add(new JLabel("line20"));
+        JLabel line20Label = new JLabel("Field1:");
+        line20Label.setHorizontalAlignment(SwingConstants.RIGHT);
+        line20.add(line20Label);
         line20.add(questionField1);
         this.add(line20);
 
         JPanel line21 = new JPanel(new GridLayout(1, 2));
-        line21.add(new JLabel("line21"));
+        JLabel line21Label = new JLabel("Field2:");
+        line21Label.setHorizontalAlignment(SwingConstants.RIGHT);
+        line21.add(line21Label);
         line21.add(questionField2);
         this.add(line21);
 
@@ -49,14 +53,10 @@ public class CardQuestionPanel extends CardNodePanel {
     }
 
     public void showNodeValue(TreeNode node) {
-        nodeQuestion = (TreeNodeQuestion) node;
-
-        this.questionField1.setText(nodeQuestion.toString());
+        super.showNodeValue(node);
     }
 
-    private void setNodeValue() {
-        if (nodeQuestion != null) {
-            nodeQuestion.setName(questionField1.getText());
-        }
+    protected void setNodeValue() {
+        super.setNodeValue();
     }
 }

@@ -52,7 +52,6 @@ public class QuizEditor {
 
                 if (state == JFileChooser.APPROVE_OPTION) {
                     File file = fc.getSelectedFile();
-                    System.out.println(file.getAbsolutePath() + " open file----" + file.getName());
                     XMLFile.readXML(file.getAbsolutePath());
                 }
             }
@@ -71,7 +70,6 @@ public class QuizEditor {
                 if (state == JFileChooser.APPROVE_OPTION) {
                     File file = fc.getSelectedFile();
 
-                    System.out.println("open file----" + file.getName());
                     try {
                         XMLFile.generateXML(xmlTree, file.getAbsolutePath());
                     } catch (ParserConfigurationException e) {
