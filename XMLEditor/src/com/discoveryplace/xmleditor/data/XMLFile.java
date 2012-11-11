@@ -47,7 +47,7 @@ public class XMLFile {
         return document;
     }
 
-    public static void generateXML(XMLTree treePanel, String fileName) throws ParserConfigurationException,
+    public static void writeXML(XMLTree treePanel, String fileName) throws ParserConfigurationException,
             FileNotFoundException, TransformerException {
         System.out.println("writing");
         JTree tree = treePanel.getJTree();

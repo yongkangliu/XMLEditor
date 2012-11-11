@@ -76,7 +76,7 @@ public class QuizEditor {
                     File file = fc.getSelectedFile();
 
                     try {
-                        XMLFile.generateXML(xmlTree, file.getAbsolutePath());
+                        XMLFile.writeXML(xmlTree, file.getAbsolutePath());
                     } catch (ParserConfigurationException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();

@@ -86,7 +86,7 @@ public class XMLTree extends JPanel implements ActionListener {
     }
 
     /** Remove the currently selected node. */
-    public void removeCurrentNode() {
+    public void removeSelectedNode() {
         TreePath currentSelection = tree.getSelectionPath();
         if (currentSelection != null) {
             DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode) (currentSelection.getLastPathComponent());
@@ -166,7 +166,7 @@ public class XMLTree extends JPanel implements ActionListener {
         if (ADD_COMMAND.equals(command)) {
             addObject();
         } else if (REMOVE_COMMAND.equals(command)) {
-            removeCurrentNode();
+            removeSelectedNode();
         } else if (CLEAR_COMMAND.equals(command)) {
             clear();
         }
