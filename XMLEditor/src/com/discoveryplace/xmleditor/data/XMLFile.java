@@ -1,4 +1,5 @@
 package com.discoveryplace.xmleditor.data;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -27,6 +28,12 @@ import org.xml.sax.SAXException;
 import com.discoveryplace.xmleditor.ui.XMLTree;
 
 public class XMLFile {
+    public static String NODE_NAME = "name";
+    public static String NODE_DESCRIPTION = "description";
+    public static String NODE_TYPE = "type";
+    public static String NODE_URL = "url";
+    public static String NODE_IS_ANSWER = "isAnswer";
+
     DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
 
     // Load and parse XML file into DOM
@@ -49,32 +56,37 @@ public class XMLFile {
 
     public static void writeXML(XMLTree treePanel, String fileName) throws ParserConfigurationException,
             FileNotFoundException, TransformerException {
-        System.out.println("writing");
         JTree tree = treePanel.getJTree();
         DefaultMutableTreeNode quizNode = (DefaultMutableTreeNode) tree.getModel().getRoot();
-        System.out.println("quiz:" + quizNode.getLevel());
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document doc = builder.newDocument();
         Element quizNodeInfo = doc.createElement("quiz");
-        quizNodeInfo.setAttribute("test", "ttt");
+        TreeNodeQuiz quiz = (TreeNodeQuiz) quizNode.getUserObject();
+        quizNodeInfo.setAttribute(NODE_NAME, quiz.getName());
+        quizNodeInfo.setAttribute(NODE_DESCRIPTION, quiz.getDescription());
         doc.appendChild(quizNodeInfo);
 
         for (Enumeration<?> questions = quizNode.children(); questions.hasMoreElements();) {
             DefaultMutableTreeNode questionNode = (DefaultMutableTreeNode) questions.nextElement();
-            System.out.println("question:" + questionNode.getLevel());
 
             Element questionNodeInfo = doc.createElement("question");
-            questionNodeInfo.setAttribute("test2", "222");
+            TreeNodeQuestion question = (TreeNodeQuestion) questionNode.getUserObject();
+            questionNodeInfo.setAttribute(NODE_NAME, question.getName());
+            questionNodeInfo.setAttribute(NODE_DESCRIPTION, question.getDescription());
+            questionNodeInfo.setAttribute(NODE_TYPE, question.getQuestionType());
+            questionNodeInfo.setAttribute(NODE_URL, question.getUrl());
             quizNodeInfo.appendChild(questionNodeInfo);
 
             for (Enumeration<?> options = questionNode.children(); options.hasMoreElements();) {
                 DefaultMutableTreeNode optionNode = (DefaultMutableTreeNode) options.nextElement();
-                System.out.println("option:" + optionNode.getLevel());
 
                 Element optionNodeInfo = doc.createElement("option");
-                optionNodeInfo.setAttribute("test3", "333");
+                TreeNodeOption option = (TreeNodeOption) optionNode.getUserObject();
+                optionNodeInfo.setAttribute(NODE_NAME, option.getName());
+                optionNodeInfo.setAttribute(NODE_DESCRIPTION, option.getDescription());
+                optionNodeInfo.setAttribute(NODE_IS_ANSWER, String.valueOf(option.isAnswer()));
                 questionNodeInfo.appendChild(optionNodeInfo);
             }
         }
@@ -100,7 +112,9 @@ public class XMLFile {
 
         // get root element
         Element quizElement = document.getDocumentElement();
-        XMLTree treePanel = XMLTree.getInstance(new TreeNodeQuiz(quizElement.getAttribute("name")));
+        TreeNodeQuiz quiz = new TreeNodeQuiz(quizElement.getAttribute(NODE_NAME));
+        quiz.setDescription(quizElement.getAttribute(NODE_DESCRIPTION));
+        XMLTree treePanel = XMLTree.getInstance(quiz);
 
         // traverse child elements
         NodeList questionNodes = quizElement.getChildNodes();
@@ -110,7 +124,10 @@ public class XMLFile {
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element questionElement = (Element) node;
                 // process child element
-                TreeNode questionTreeNode = new TreeNodeQuestion(questionElement.getAttribute("name"));
+                TreeNodeQuestion questionTreeNode = new TreeNodeQuestion(questionElement.getAttribute(NODE_NAME));
+                questionTreeNode.setDescription(questionElement.getAttribute(NODE_DESCRIPTION));
+                questionTreeNode.setQuestionType(questionElement.getAttribute(NODE_TYPE));
+                questionTreeNode.setUrl(questionElement.getAttribute(NODE_URL));
                 DefaultMutableTreeNode qNode = treePanel.addObject(null, questionTreeNode);
 
                 NodeList optionNodes = questionElement.getChildNodes();
@@ -118,7 +135,9 @@ public class XMLFile {
                     Node optionNode = optionNodes.item(j);
                     if (optionNode.getNodeType() == Node.ELEMENT_NODE) {
                         Element optionElement = (Element) optionNode;
-                        TreeNode optionTreeNode = new TreeNodeOption(optionElement.getAttribute("name"));
+                        TreeNodeOption optionTreeNode = new TreeNodeOption(optionElement.getAttribute(NODE_NAME));
+                        optionTreeNode.setDescription(optionElement.getAttribute(NODE_DESCRIPTION));
+                        optionTreeNode.setAnswer(optionElement.getAttribute(NODE_IS_ANSWER));
                         treePanel.addObject(qNode, optionTreeNode);
                     }
                 }

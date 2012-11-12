@@ -1,7 +1,16 @@
 package com.discoveryplace.xmleditor.data;
+
 public abstract class TreeNode {
     protected String name;
     protected String description;
+
+    public TreeNode() {
+
+    }
+
+    public TreeNode(String name) {
+        this.name = name;
+    }
 
     @Override
     public String toString() {

@@ -38,14 +38,14 @@ public abstract class CardNodePanel extends JPanel {
     public void showNodeValue(TreeNode node) {
         this.treeNode = node;
 
-        name.setText(node.getName());
-        description.setText(node.getDescription());
+        this.name.setText(node.getName());
+        this.description.setText(node.getDescription());
     }
 
     protected void setNodeValue() {
         if (this.treeNode != null) {
-            this.treeNode.setName(name.getText());
-            this.treeNode.setDescription(description.getText());
+            this.treeNode.setName(this.name.getText());
+            this.treeNode.setDescription(this.description.getText());
         }
     }
 }

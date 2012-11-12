@@ -3,7 +3,7 @@ import com.discoveryplace.xmleditor.ui.CardQuizPanel;
 
 public class TreeNodeQuiz extends TreeNode {
     public TreeNodeQuiz(String name) {
-        super.name = name;
+        super(name);
     }
 
     public void showNodeValue() {
