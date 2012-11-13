@@ -18,7 +18,7 @@ public class CardOptionPanel extends CardNodePanel {
     private static final long serialVersionUID = -8229602809184488899L;
     public static String OPTION = "option";
 
-    private JCheckBox isAnswerCheckBox = new JCheckBox("Correct Answer");
+    private JCheckBox isAnswerCheckBox = new JCheckBox("Correct Option");
 
     private static CardOptionPanel instance = new CardOptionPanel();
 

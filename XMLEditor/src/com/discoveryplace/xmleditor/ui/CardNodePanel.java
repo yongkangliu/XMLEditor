@@ -19,6 +19,7 @@ public abstract class CardNodePanel extends JPanel {
 
     public CardNodePanel() {
         super(new GridLayout(12, 1));
+
         // Fields for Quiz information
         JPanel line1 = new JPanel(new GridLayout(1, 2));
         JLabel line1Label = new JLabel("Name:");

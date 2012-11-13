@@ -26,7 +26,7 @@ public class QuizEditor {
     public static void main(String[] args) {
         // The left side
         JPanel panel = new JPanel(new GridLayout(1, 2));
-        panel.setPreferredSize(new Dimension(600, 400));
+        panel.setPreferredSize(new Dimension(600, 360));
         XMLTree xmlTreeGUI = XMLTree.getInstance(new TreeNodeQuiz("New Quiz"));
         xmlTree = xmlTreeGUI;
         panel.add(xmlTreeGUI);
@@ -112,6 +112,7 @@ public class QuizEditor {
         frame.setJMenuBar(jMenuBar);
 
         frame.pack();
+        frame.setResizable(false);
         frame.setVisible(true);
     }
 }

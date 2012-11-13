@@ -37,7 +37,7 @@ public class XMLFile {
     DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
 
     // Load and parse XML file into DOM
-    public Document parse(String filePath) {
+    private Document parse(String filePath) {
         Document document = null;
         try {
             // DOM parser instance
