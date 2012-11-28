@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.xml.parsers.ParserConfigurationException;
@@ -28,7 +29,7 @@ public class QuizEditor {
         JPanel panel = new JPanel(new GridLayout(1, 2));
         panel.setPreferredSize(new Dimension(600, 360));
         XMLTree xmlTreeGUI = XMLTree.getInstance(new TreeNodeQuiz("New Quiz"));
-        xmlTree = xmlTreeGUI;
+        QuizEditor.xmlTree = xmlTreeGUI;
         panel.add(xmlTreeGUI);
 
         // The right side
@@ -76,16 +77,21 @@ public class QuizEditor {
                     File file = fc.getSelectedFile();
 
                     try {
-                        XMLFile.writeXML(xmlTree, file.getAbsolutePath());
+                        XMLFile.writeXML(QuizEditor.xmlTree, file.getAbsolutePath());
+                        JOptionPane.showMessageDialog(null, "File saved.", "OK", JOptionPane.INFORMATION_MESSAGE);
                     } catch (ParserConfigurationException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
+                        JOptionPane.showMessageDialog(null, e.toString(), "Alert", JOptionPane.ERROR_MESSAGE);
+
                     } catch (FileNotFoundException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
+                        JOptionPane.showMessageDialog(null, e.toString(), "Alert", JOptionPane.ERROR_MESSAGE);
                     } catch (TransformerException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
+                        JOptionPane.showMessageDialog(null, e.toString(), "Alert", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }

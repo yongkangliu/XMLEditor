@@ -4,6 +4,16 @@ import com.discoveryplace.xmleditor.ui.CardQuestionPanel;
 
 public class TreeNodeQuestion extends TreeNode {
     private String url;
+    private String questionType = CardQuestionPanel.TEXT;
+    private String questionLevel = CardQuestionPanel.MEDIUM;
+
+    public String getQuestionLevel() {
+        return questionLevel;
+    }
+
+    public void setQuestionLevel(String questionLevel) {
+        this.questionLevel = questionLevel;
+    }
 
     public String getUrl() {
         return url;
@@ -20,8 +30,6 @@ public class TreeNodeQuestion extends TreeNode {
     public void setQuestionType(String questionType) {
         this.questionType = questionType;
     }
-
-    private String questionType;
 
     public TreeNodeQuestion(String name) {
         super(name);

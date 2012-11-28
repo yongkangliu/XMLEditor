@@ -30,6 +30,7 @@ import com.discoveryplace.xmleditor.ui.XMLTree;
 public class XMLFile {
     public static String NODE_NAME = "name";
     public static String NODE_DESCRIPTION = "description";
+    public static String NODE_LEVEL = "level";
     public static String NODE_TYPE = "type";
     public static String NODE_URL = "url";
     public static String NODE_IS_ANSWER = "isAnswer";
@@ -75,6 +76,7 @@ public class XMLFile {
             TreeNodeQuestion question = (TreeNodeQuestion) questionNode.getUserObject();
             questionNodeInfo.setAttribute(NODE_NAME, question.getName());
             questionNodeInfo.setAttribute(NODE_DESCRIPTION, question.getDescription());
+            questionNodeInfo.setAttribute(NODE_LEVEL, question.getQuestionLevel());
             questionNodeInfo.setAttribute(NODE_TYPE, question.getQuestionType());
             questionNodeInfo.setAttribute(NODE_URL, question.getUrl());
             quizNodeInfo.appendChild(questionNodeInfo);
@@ -126,6 +128,7 @@ public class XMLFile {
                 // process child element
                 TreeNodeQuestion questionTreeNode = new TreeNodeQuestion(questionElement.getAttribute(NODE_NAME));
                 questionTreeNode.setDescription(questionElement.getAttribute(NODE_DESCRIPTION));
+                questionTreeNode.setQuestionLevel(questionElement.getAttribute(NODE_LEVEL));
                 questionTreeNode.setQuestionType(questionElement.getAttribute(NODE_TYPE));
                 questionTreeNode.setUrl(questionElement.getAttribute(NODE_URL));
                 DefaultMutableTreeNode qNode = treePanel.addObject(null, questionTreeNode);
