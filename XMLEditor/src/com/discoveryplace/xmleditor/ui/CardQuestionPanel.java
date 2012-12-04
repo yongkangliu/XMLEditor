@@ -1,3 +1,8 @@
+/*
+ * UNC Charlotte ITCS 6112 Software Systems Design and Implementation
+ * 
+ * by Yongkang Liu, 12/02/2012
+ */
 package com.discoveryplace.xmleditor.ui;
 
 import java.awt.GridLayout;
@@ -14,6 +19,9 @@ import javax.swing.SwingConstants;
 import com.discoveryplace.xmleditor.data.TreeNode;
 import com.discoveryplace.xmleditor.data.TreeNodeQuestion;
 
+/**
+ * The class of question node attributes panel. It's a singleton class.
+ */
 public class CardQuestionPanel extends CardNodePanel {
 
     private static final long serialVersionUID = -3942735705442838426L;
@@ -27,14 +35,24 @@ public class CardQuestionPanel extends CardNodePanel {
     public static String MEDIUM = "Medium";
     private static String EASY = "Easy";
 
+    // The CardQuestionPanel class instance.
     private static CardQuestionPanel instance = new CardQuestionPanel();
 
+    // The layout panel
     private JPanel lineUrl = new JPanel(new GridLayout(1, 2));
 
+    // The question url field
     private JTextField questionURL = new JTextField();
+
+    // The question type Combobox
     private JComboBox<String> questionType = new JComboBox<String>(new String[] { TEXT, IMAGE, VIDEO });
+
+    // The question level Combobox
     private JComboBox<String> questionLevel = new JComboBox<String>(new String[] { EASY, MEDIUM, HARD });
 
+    /**
+     * Private constructor
+     */
     private CardQuestionPanel() {
         // Fields for Question information
         JPanel line20 = new JPanel(new GridLayout(1, 2));
@@ -84,14 +102,25 @@ public class CardQuestionPanel extends CardNodePanel {
         });
     }
 
+    /**
+     * Get the CardQuestionPanel instance.
+     * 
+     * @return Return the CardQuestionPanel instance.
+     */
     public static CardQuestionPanel getInstance() {
         return CardQuestionPanel.instance;
     }
 
+    /**
+     * Get the question node name.
+     */
     public String getName() {
         return CardQuestionPanel.QUESTION;
     }
 
+    /**
+     * Show the question node in GUI.
+     */
     public void showNodeValue(TreeNode node) {
         super.showNodeValue(node);
         this.questionLevel.setSelectedItem(((TreeNodeQuestion) node).getQuestionLevel());
@@ -105,6 +134,9 @@ public class CardQuestionPanel extends CardNodePanel {
         }
     }
 
+    /**
+     * Set the question node value from UI to data objects.
+     */
     protected void setNodeValue() {
         super.setNodeValue();
         ((TreeNodeQuestion) this.treeNode).setQuestionType((String) this.questionType.getSelectedItem());

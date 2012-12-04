@@ -1,3 +1,8 @@
+/*
+ * UNC Charlotte ITCS 6112 Software Systems Design and Implementation
+ * 
+ * by Yongkang Liu, 12/02/2012
+ */
 package com.discoveryplace.xmleditor.ui;
 
 import java.awt.Dimension;
@@ -21,9 +26,18 @@ import javax.xml.transform.TransformerException;
 import com.discoveryplace.xmleditor.data.TreeNodeQuiz;
 import com.discoveryplace.xmleditor.data.XMLFile;
 
+/**
+ * The main class to run the application
+ */
 public class QuizEditor {
+    // The XMLTree instance.
     private static XMLTree xmlTree;
 
+    /**
+     * The main function
+     * 
+     * @param args
+     */
     public static void main(String[] args) {
         // The left side
         JPanel panel = new JPanel(new GridLayout(1, 2));

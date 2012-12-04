@@ -1,3 +1,8 @@
+/*
+ * UNC Charlotte ITCS 6112 Software Systems Design and Implementation
+ * 
+ * by Yongkang Liu, 12/02/2012
+ */
 package com.discoveryplace.xmleditor.ui;
 
 import java.awt.GridLayout;
@@ -9,14 +14,25 @@ import javax.swing.SwingConstants;
 
 import com.discoveryplace.xmleditor.data.TreeNode;
 
+/**
+ * The abstract class of node attributes panel
+ */
 public abstract class CardNodePanel extends JPanel {
 
     private static final long serialVersionUID = -277833333995261230L;
 
+    // The node name field
     protected JTextField name = new JTextField();
+
+    // The node description field.
     protected JTextField description = new JTextField();
+
+    // The root TreeNode
     protected TreeNode treeNode;
 
+    /**
+     * Constructor
+     */
     public CardNodePanel() {
         super(new GridLayout(12, 1));
 
@@ -36,6 +52,12 @@ public abstract class CardNodePanel extends JPanel {
         this.add(line2);
     }
 
+    /**
+     * Show the XML node.
+     * 
+     * @param node
+     *            The XML node.
+     */
     public void showNodeValue(TreeNode node) {
         this.treeNode = node;
 
@@ -43,6 +65,9 @@ public abstract class CardNodePanel extends JPanel {
         this.description.setText(node.getDescription());
     }
 
+    /**
+     * Set XML node value from UI to data objects.
+     */
     protected void setNodeValue() {
         if (this.treeNode != null) {
             this.treeNode.setName(this.name.getText());

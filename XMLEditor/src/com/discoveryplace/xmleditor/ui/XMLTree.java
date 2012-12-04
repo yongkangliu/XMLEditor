@@ -1,3 +1,8 @@
+/*
+ * UNC Charlotte ITCS 6112 Software Systems Design and Implementation
+ * 
+ * by Yongkang Liu, 12/02/2012
+ */
 package com.discoveryplace.xmleditor.ui;
 
 import java.awt.BorderLayout;
@@ -21,23 +26,36 @@ import com.discoveryplace.xmleditor.data.TreeNode;
 import com.discoveryplace.xmleditor.data.TreeNodeOption;
 import com.discoveryplace.xmleditor.data.TreeNodeQuestion;
 
+/**
+ * The XML Tree class. It's a singleton class.
+ * 
+ */
 public class XMLTree extends JPanel implements ActionListener {
 
     private static final long serialVersionUID = 1340647621383657976L;
 
+    // There two button at the botton the tree.
     private static String ADD_COMMAND = "add";
     private static String REMOVE_COMMAND = "remove";
-    private static String CLEAR_COMMAND = "clear";
-
-    private DefaultMutableTreeNode rootNode;
-    private DefaultTreeModel treeModel;
-    private JTree tree = new JTree();
 
     private JButton addB;
     private JButton removeB;
 
+    // The root node
+    private DefaultMutableTreeNode rootNode;
+
+    // The tree model for the data in the tree
+    private DefaultTreeModel treeModel;
+
+    // The JTree object.
+    private JTree tree = new JTree();
+
+    // The XML Tree instance.
     private static XMLTree instance = new XMLTree();
 
+    /**
+     * Private constructor.
+     */
     private XMLTree() {
         super(new BorderLayout());
 
@@ -67,6 +85,13 @@ public class XMLTree extends JPanel implements ActionListener {
         super.add(panel, BorderLayout.SOUTH);
     }
 
+    /**
+     * Get the XMLTree instance with a input data object.
+     * 
+     * @param object
+     *            The input data object
+     * @return Return the XMLTree instance.
+     */
     public static XMLTree getInstance(Object object) {
         instance.clear();
         instance.rootNode = new DefaultMutableTreeNode(object);
@@ -76,16 +101,25 @@ public class XMLTree extends JPanel implements ActionListener {
         return instance;
     }
 
+    /**
+     * Get the JTee instance.
+     * 
+     * @return Return the JTree instance.
+     */
     public JTree getJTree() {
         return this.tree;
     }
 
-    /** Remove all nodes except the root node. */
+    /**
+     * Remove all nodes except the root node
+     */
     public void clear() {
         tree.removeAll();
     }
 
-    /** Remove the currently selected node. */
+    /**
+     * Remove the currently selected node.
+     */
     public void removeSelectedNode() {
         TreePath currentSelection = tree.getSelectionPath();
         if (currentSelection != null) {
@@ -98,7 +132,11 @@ public class XMLTree extends JPanel implements ActionListener {
         }
     }
 
-    /** Add child to the currently selected node. */
+    /**
+     * Add child to the currently selected node.
+     * 
+     * @return Return the selected node.
+     */
     public DefaultMutableTreeNode addObject() {
         DefaultMutableTreeNode parentNode = null;
         TreePath parentPath = tree.getSelectionPath();
@@ -120,10 +158,29 @@ public class XMLTree extends JPanel implements ActionListener {
         return addObject(parentNode, newNode, true);
     }
 
+    /**
+     * Add new node.
+     * 
+     * @param parent
+     *            The parent node
+     * @param child
+     *            The child node
+     * @return Return the new tree node.
+     */
     public DefaultMutableTreeNode addObject(DefaultMutableTreeNode parent, Object child) {
         return addObject(parent, child, false);
     }
 
+    /**
+     * Add new node.
+     * 
+     * @param parent
+     *            The parent node
+     * @param child
+     *            The child node
+     * @param shouldBeVisible
+     * @return Return the new tree node.
+     */
     public DefaultMutableTreeNode addObject(DefaultMutableTreeNode parent, Object child, boolean shouldBeVisible) {
         DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(child);
 
@@ -141,6 +198,12 @@ public class XMLTree extends JPanel implements ActionListener {
         return childNode;
     }
 
+    /**
+     * Display the add button, or not.
+     * 
+     * @param name
+     *            Doesn't display the add button if the name is empty.
+     */
     public void setAddButtonName(String name) {
         if ("".equals(name)) {
             addB.setEnabled(false);
@@ -150,6 +213,12 @@ public class XMLTree extends JPanel implements ActionListener {
         addB.setText(name);
     }
 
+    /**
+     * Display the remove button, or not.
+     * 
+     * @param name
+     *            Doesn't display the remove button if the name is empty.
+     */
     public void setRemoveButtonName(String name) {
         if ("".equals(name)) {
             removeB.setEnabled(false);
@@ -167,11 +236,12 @@ public class XMLTree extends JPanel implements ActionListener {
             addObject();
         } else if (REMOVE_COMMAND.equals(command)) {
             removeSelectedNode();
-        } else if (CLEAR_COMMAND.equals(command)) {
-            clear();
         }
     }
 
+    /**
+     * The tree selection listener
+     */
     class MyTreeSelectionListener implements TreeSelectionListener {
         @Override
         public void valueChanged(TreeSelectionEvent e) {

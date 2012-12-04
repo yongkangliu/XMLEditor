@@ -1,3 +1,8 @@
+/*
+ * UNC Charlotte ITCS 6112 Software Systems Design and Implementation
+ * 
+ * by Yongkang Liu, 12/02/2012
+ */
 package com.discoveryplace.xmleditor.data;
 
 import java.io.File;
@@ -27,6 +32,10 @@ import org.xml.sax.SAXException;
 
 import com.discoveryplace.xmleditor.ui.XMLTree;
 
+/**
+ * Read and write XML files.
+ * 
+ */
 public class XMLFile {
     public static String NODE_NAME = "name";
     public static String NODE_DESCRIPTION = "description";
@@ -37,7 +46,13 @@ public class XMLFile {
 
     DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
 
-    // Load and parse XML file into DOM
+    /**
+     * Load and parse XML file into DOM
+     * 
+     * @param filePath
+     *            The file path.
+     * @return Return the Document object.
+     */
     private Document parse(String filePath) {
         Document document = null;
         try {
@@ -55,6 +70,17 @@ public class XMLFile {
         return document;
     }
 
+    /**
+     * Write XML file.
+     * 
+     * @param treePanel
+     *            The XML Tree object
+     * @param fileName
+     *            The XML file name
+     * @throws ParserConfigurationException
+     * @throws FileNotFoundException
+     * @throws TransformerException
+     */
     public static void writeXML(XMLTree treePanel, String fileName) throws ParserConfigurationException,
             FileNotFoundException, TransformerException {
         JTree tree = treePanel.getJTree();
@@ -96,6 +122,16 @@ public class XMLFile {
         wirteFile(doc, fileName);
     }
 
+    /**
+     * Write xml file.
+     * 
+     * @param doc
+     *            The document object
+     * @param fileName
+     *            The xml file name
+     * @throws TransformerException
+     * @throws FileNotFoundException
+     */
     private static void wirteFile(Document doc, String fileName) throws TransformerException, FileNotFoundException {
         TransformerFactory tf = TransformerFactory.newInstance();
         tf.setAttribute("indent-number", new Integer(4));
@@ -108,6 +144,13 @@ public class XMLFile {
         transformer.transform(source, result);
     }
 
+    /**
+     * Read XML file
+     * 
+     * @param fileName
+     *            The xml file name.
+     * @return Return the XMLTree object.
+     */
     public static XMLTree readXML(String fileName) {
         XMLFile parser = new XMLFile();
         Document document = parser.parse(fileName);
